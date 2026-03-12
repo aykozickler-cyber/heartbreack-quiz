@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Take your breakup recovery assessment. 2-minute quiz reveals your personality type and personalized strategy.">
+    <meta name="theme-color" content="#7C3AED">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Take the Breakup Recovery Quiz">
+    <meta property="og:description" content="Discover why she left and how to get her back. Personalized assessment based on proven psychology.">
+    <meta property="og:image" content="https://heartbreakquiz.com/og-image.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Take the Breakup Recovery Quiz">
+    <meta name="twitter:description" content="2-minute assessment reveals your breakup personality and winning strategy">
+    
+    <title>Quiz - Get Her Back Assessment</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%237C3AED' width='100' height='100'/><text x='50' y='65' font-size='60' font-weight='bold' fill='white' text-anchor='middle'>❤️</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+    </div>
+
+    <!-- Quiz Container -->
+    <div class="quiz-container">
+        <!-- Header with Logo/Brand -->
+        <div class="quiz-header">
+            <div class="logo">The <span>Reconnection</span> Protocol</div>
+            <div class="question-counter" id="questionCounter">Question 1 of 10</div>
+        </div>
+
+        <!-- Question Box -->
+        <div class="question-box" id="questionBox">
+            <!-- Questions will be injected by JavaScript -->
+        </div>
+
+        <!-- Options Container -->
+        <div class="options-container" id="optionsContainer">
+            <!-- Options will be injected by JavaScript -->
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons">
+            <button class="nav-btn prev-btn" id="prevBtn" onclick="prevQuestion()" style="visibility: hidden;">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="nav-btn next-btn" id="nextBtn" onclick="nextQuestion()">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Loading Overlay (Shows when calculating results) -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loader"></div>
+        <p>Analyzing your responses...</p>
+        <p class="loading-sub">Preparing your personalized profile</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Results - Get Her Back Plan</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="results.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Quiz Configuration -->
+    <script src="config.js"></script>
+    <!-- Supabase SDK (PostgreSQL backend) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.26.0"></script>
+    <!-- Firebase SDK (optional - only if using Firebase) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
+    <!-- Database Module for data collection -->
+    <script src="database.js"></script>
+    <!-- Gumroad Payment -->
+    <script src="https://gumroad.com/js/gumroad.js"></script>
+    <!-- Stripe.js for Payment Processing -->
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <div class="max-w-2xl mx-auto p-10 md:p-16 bg-white rounded-3xl shadow-2xl mt-16 mb-12 text-center relative border border-violet-100">
+        <!-- Result Header -->
+        <div class="mb-10">
+            <div class="inline-block bg-gradient-to-r from-violet-500 to-pink-500 text-white px-6 py-2 rounded-full font-extrabold text-base mb-3 shadow animate-fade-in" id="resultBadge">YOUR PERSONALIZED RESULT</div>
+            <h1 class="text-4xl font-extrabold text-violet-600 mb-2 drop-shadow-lg" id="resultTitle"></h1>
+            <div class="text-gray-500 text-xl mb-3" id="resultSubhead"></div>
+        </div>
+
+        <!-- Main Result Card -->
+        <div class="bg-gray-50 rounded-2xl p-8 mb-10 shadow-lg">
+            <div class="text-5xl mb-3" id="resultIcon"></div>
+            <div class="text-lg text-gray-700 mb-3" id="resultDescription"></div>
+            <!-- The "What's Working Against You" Section -->
+            <div class="bg-yellow-100 text-yellow-800 rounded-lg p-4 mt-3 text-base font-bold shadow-sm" id="warningBox"></div>
+        </div>
+
+        <!-- The Offer - Payment Section with €1.99 -->
+        <div class="bg-gradient-to-br from-violet-50 to-pink-50 rounded-2xl p-8 mb-10 border border-pink-100 shadow-xl">
+            <div class="mb-6">
+                <span class="inline-block bg-pink-500 text-white px-4 py-2 rounded-full text-base font-extrabold mb-3 shadow animate-bounce">🔥 LIMITED TIME OFFER 🔥</span>
+                <h2 class="text-2xl font-extrabold mb-2 text-violet-700">Your Personalized 27-Page Recovery System</h2>
+                <p class="text-gray-600 text-lg">Created specifically for your "<span id="personalityTypeName"></span>" personality type</p>
+            </div>
+
+            <!-- The Hook - What They Get -->
+            <div class="flex flex-col items-center mb-6">
+                <i class="fas fa-file-pdf text-5xl text-violet-500 mb-3"></i>
+                <h3 class="font-extrabold text-xl mb-1">Get Your Complete Personalized Results + E-Book</h3>
+                <p class="text-gray-600 text-base">Includes your detailed personality analysis AND the step-by-step guide to win her back</p>
+            </div>
+
+            <!-- Benefits List -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="flex items-start gap-2">
+                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                    <div>
+                        <strong>Your Full Personality Breakdown</strong>
+                        <p class="text-gray-500 text-sm">Why you react the way you do after breakup</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-2">
+                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                    <div>
+                        <strong>The 7-Day "No Contact" Script</strong>
+                        <p class="text-gray-500 text-sm">Exact words to text her (and when)</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-2">
+                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                    <div>
+                        <strong>5 Psychological Triggers</strong>
+                        <p class="text-gray-500 text-sm">Make her miss you again</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-2">
+                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                    <div>
+                        <strong>The "Second Chance" Conversation</strong>
+                        <p class="text-gray-500 text-sm">What to say when you finally meet</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price Box with Strike-through and Euro -->
+            <div class="flex items-center justify-center gap-6 mb-3">
+                <div class="text-gray-400 line-through text-xl">€19.99</div>
+                <div class="text-pink-600 text-3xl font-extrabold animate-pulse">€1.99</div>
+                <div class="text-gray-500 text-base">One-time payment · Instant PDF download</div>
+            </div>
+
+            <!-- Urgency Micro-text -->
+            <div class="flex items-center justify-center text-yellow-600 text-base gap-2 mb-3 font-bold">
+                <i class="fas fa-clock"></i> Special launch pricing · 247 people bought this hour
+            </div>
+
+            <!-- Payment Button -->
+            <a href="https://zicklerayko.gumroad.com/l/rtudaz" class="gumroad-button inline-block bg-gradient-to-r from-green-400 to-green-600 text-white font-extrabold py-4 px-12 rounded-full shadow-xl hover:scale-105 hover:shadow-2xl transition text-xl mt-2 mb-6 focus:outline-none focus:ring-4 focus:ring-green-300 animate-bounce" data-gumroad-overlay="true" style="text-decoration: none;">
+                <i class="fas fa-lock"></i> Get Instant Access for €1.99
+            </a>
+
+            <!-- Payment Guarantees -->
+            <div class="flex justify-center gap-6 text-gray-500 text-base mb-6">
+                <div class="flex items-center gap-2"><i class="fas fa-lock"></i> Secure Checkout</div>
+                <div class="flex items-center gap-2"><i class="fas fa-download"></i> Instant Download</div>
+            </div>
+
+            <!-- Testimonial -->
+            <div class="flex items-center gap-6 bg-white rounded-xl shadow-lg p-6 mt-4 border border-violet-100">
+                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Mike" class="w-16 h-16 rounded-full object-cover border-2 border-pink-400">
+                <div class="text-left">
+                    <p class="text-gray-700 text-lg font-medium">"For €1.99 this is a no-brainer. The text scripts alone saved my relationship. We're back together after 3 months apart."</p>
+                    <strong class="text-pink-600 text-base">- Mike R., Dublin</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bonus Section - Even More Urgency -->
+        <div class="bg-pink-50 rounded-2xl p-8 mt-10 border border-pink-200 shadow-lg">
+            <div class="text-pink-600 font-extrabold mb-4 flex items-center gap-3 text-lg animate-pulse">
+                <i class="fas fa-gift"></i>
+                <span id="timer">15:00</span> minutes left for FREE bonus
+            </div>
+            <div class="flex items-center gap-3 text-violet-600 mb-2 text-base">
+                <i class="fas fa-star"></i>
+                <div>
+                    <strong>⚡ FREE BONUS:</strong> "The 5 Texts She Can't Resist" (Value €7)
+                </div>
+            </div>
+            <div class="flex items-center gap-3 text-violet-600 mb-2 text-base">
+                <i class="fas fa-star"></i>
+                <div>
+                    <strong>⚡ FREE BONUS:</strong> "Emergency Mistake Checklist" (Value €5)
+                </div>
+            </div>
+            <div class="text-center mt-6 text-base text-gray-400">
+                Total value: <span class="line-through">€31.99</span> → Today only: <strong class="text-pink-600">€1.99</strong>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get result from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const resultType = urlParams.get('type') || 'rationalizer'; // Default fallback
+
+        // Result data for each personality type
+        const resultData = {
+            rationalizer: {
+                title: "The Analyst",
+                subhead: "You lead with logic. But love isn't a math problem.",
+                icon: "🧠",
+                description: "You're approaching this like a puzzle to be solved. You've been analyzing every text, every memory, every 'what if.' While your logical mind is an asset, it's also creating distance. Women reconnect through emotion, not debate.",
+                warning: "⚠️ Your biggest risk: Over-analyzing and 'proving' your case. This makes you seem desperate and drives her further away.",
+                personalityName: "The Logical Analyst"
+            },
+            devastated: {
+                title: "The Deep Feeler",
+                subhead: "You loved with your whole heart. Now you're lost.",
+                icon: "💔",
+                description: "You feel everything intensely. This isn't just a breakup to you—it's a profound loss. You're in emotional shock, and that raw pain is visible in everything you do. Before you can win her back, you need to stabilize.",
+                warning: "⚠️ Your biggest risk: Emotional flooding. Desperation repels. You need to regain your emotional center first.",
+                personalityName: "The Devastated Romantic"
+            },
+            seeker: {
+                title: "The Confused Seeker",
+                subhead: "You know what happened, but not WHY it happened.",
+                icon: "🔍",
+                description: "You're stuck in confusion. You can replay the events, but you don't understand the underlying reasons she left. This uncertainty is paralyzing and leads to making the wrong moves out of guesswork.",
+                warning: "⚠️ Your biggest risk: Random trial and error. Without understanding the 'why,' you'll push her away permanently.",
+                personalityName: "The Clarity Seeker"
+            }
+        };
+
+        // Display results
+        const data = resultData[resultType];
+        document.getElementById('resultTitle').innerHTML = data.title;
+        document.getElementById('resultSubhead').innerHTML = data.subhead;
+        document.getElementById('resultIcon').innerHTML = data.icon;
+        document.getElementById('resultDescription').innerHTML = data.description;
+        document.getElementById('warningBox').innerHTML = data.warning;
+        document.getElementById('personalityTypeName').innerHTML = data.personalityName;
+
+        // Payment Button - Uses config from config.js
+        document.getElementById('paymentButton').addEventListener('click', function() {
+            // Use configuration from config.js
+            const gumroadUsername = (typeof QUIZ_CONFIG !== 'undefined') ? QUIZ_CONFIG.gumroadUsername : 'YOUR_GUMROAD_USERNAME';
+            const gumroadProductId = (typeof QUIZ_CONFIG !== 'undefined') ? QUIZ_CONFIG.gumroadProductId : 'YOUR_PRODUCT_ID';
+            
+            if (gumroadUsername === 'YOUR_GUMROAD_USERNAME' || gumroadProductId === 'YOUR_PRODUCT_ID') {
+                alert('⚠️ Please configure your Gumroad details in config.js');
+                return;
+            }
+            
+            window.location.href = `https://${gumroadUsername}.gumroad.com/l/${gumroadProductId}`;
+        });
+
+        // Update the timer to show minutes:seconds
+        let timeLeft = 900; // 15 minutes
+        const timerElement = document.getElementById('timer');
+
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.innerHTML = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft > 0) {
+                timeLeft--;
+                setTimeout(updateTimer, 1000);
+            }
+        }
+        updateTimer();
+    </script>
+</body>
+</html>

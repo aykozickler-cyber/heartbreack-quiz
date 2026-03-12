@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Results Preview - Get Her Back Plan</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Gumroad Overlay Script -->
+    <script src="https://gumroad.com/js/gumroad.js"></script>
+    <style>
+        :root {
+            --primary: #8B5CF6;
+            --secondary: #EC4899;
+            --dark: #1F2937;
+            --gray: #6B7280;
+            --light: #F9FAFB;
+            --success: #10B981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f7ff 0%, #fff5f9 100%);
+            font-family: 'Open Sans', sans-serif;
+            min-height: 100vh;
+            padding: 16px;
+        }
+
+        .results-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ===== PROGRESS STEPS ===== */
+        .progress-steps {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .step {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--gray);
+            transition: all 0.3s;
+        }
+
+        .step.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .step-line {
+            width: 30px;
+            height: 2px;
+            background: #E5E7EB;
+        }
+
+        /* ===== EMAIL CAPTURE ===== */
+        .email-capture-section {
+            background: white;
+            border-radius: 20px;
+            border: 2px solid #E5E7EB;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .email-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .email-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #E0E7FF 0%, #FCE7F3 100%);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .email-header h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+
+        .email-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Form Styling */
+        .email-form {
+            margin-bottom: 24px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .email-form input {
+            width: 100%;
+            padding: 14px 14px 14px 44px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .email-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+        }
+
+        .email-submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .email-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .email-trust {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-align: center;
+            border-top: 1px solid #E5E7EB;
+            padding-top: 20px;
+        }
+
+        .email-trust span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .email-trust i {
+            color: var(--success);
+        }
+
+        /* ===== RESULTS PREVIEW ===== */
+        .result-header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: slideUp 0.6s ease-out 0.1s both;
+        }
+
+        .result-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #E0E7FF 0%, #FCE7F3 100%);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .result-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .result-subhead {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        /* Result Card */
+        .result-card {
+            background: white;
+            border-radius: 20px;
+            border: 2px solid #E5E7EB;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            animation: slideUp 0.6s ease-out 0.2s both;
+        }
+
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .result-card h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .partial-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--dark);
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        /* Teaser Box */
+        .teaser-box {
+            background: linear-gradient(135deg, #F3E8FF 0%, #FCE7F3 100%);
+            border-left: 4px solid var(--primary);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .teaser-box h3 {
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .teaser-box p {
+            color: var(--gray);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .teaser-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .teaser-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--dark);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .teaser-item i {
+            color: var(--secondary);
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        /* Urgency Bar */
+        .urgency-bar {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border: 2px solid #FCD34D;
+            color: #92400E;
+            padding: 12px 16px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* ===== PAYMENT SECTION ===== */
+        .offer-section {
+            background: white;
+            border-radius: 20px;
+            border: 2px solid #E5E7EB;
+            padding: 40px 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            animation: slideUp 0.6s ease-out 0.3s both;
+        }
+
+        .offer-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .offer-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFEAA7 0%, #FDCB6E 100%);
+            color: #E67E22;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        .offer-header h2 {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .offer-header p {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        /* Unlock Grid */
+        .unlock-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .unlock-item {
+            background: #F9FAFB;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .unlock-item:hover {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, #F3E8FF 0%, #FCE7F3 100%);
+        }
+
+        .unlock-item i {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .unlock-item span {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+
+        /* Price Box */
+        .price-box {
+            text-align: center;
+            background: linear-gradient(135deg, #F3E8FF 0%, #FCE7F3 100%);
+            border: 2px solid #E9D5FF;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .old-price {
+            font-size: 1rem;
+            color: #9CA3AF;
+            text-decoration: line-through;
+            margin-bottom: 8px;
+        }
+
+        .new-price {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .price-note {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Social Proof */
+        .social-proof-badge {
+            text-align: center;
+            color: var(--gray);
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .social-proof-badge i {
+            color: var(--success);
+        }
+
+        /* Payment Button */
+        .payment-button {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700 !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3) !important;
+            text-align: center;
+            min-height: 48px;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .payment-button:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4) !important;
+        }
+
+        /* Payment Guarantees */
+        .payment-guarantees {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .guarantee {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--gray);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .guarantee i {
+            color: var(--primary);
+        }
+
+        /* Testimonial Carousel */
+        .testimonials-carousel {
+            background: #F9FAFB;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 24px 20px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .carousel-container {
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        .testimonial {
+            flex: 0 0 100%;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 0 8px;
+        }
+
+        .testimonial img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .testimonial-content {
+            flex: 1;
+        }
+
+        .testimonial p {
+            font-style: italic;
+            color: var(--dark);
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            text-align: left;
+            line-height: 1.5;
+        }
+
+        .testimonial strong {
+            color: var(--primary);
+            display: block;
+            margin-top: 8px;
+            font-weight: 700;
+        }
+
+        .testimonial-rating {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+
+        .testimonial-rating i {
+            color: #FCD34D;
+        }
+
+        /* Carousel Controls */
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .carousel-btn {
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--primary);
+            background: white;
+            border-radius: 50%;
+            color: var(--primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .carousel-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .carousel-indicators {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #E5E7EB;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: var(--primary);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Urgency Micro */
+        .urgency-micro {
+            background: #FEF3C7;
+            border-left: 4px solid #FCD34D;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #92400E;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 20px auto;
+        }
+
+        /* ===== MOBILE RESPONSIVE ===== */
+        @media (max-width: 640px) {
+            body {
+                padding: 12px;
+            }
+
+            .email-capture-section,
+            .result-card,
+            .offer-section {
+                padding: 24px 16px;
+                border-radius: 16px;
+            }
+
+            .email-header h2,
+            .result-header h1,
+            .offer-header h2 {
+                font-size: 1.4rem;
+            }
+
+            .new-price {
+                font-size: 2.2rem;
+            }
+
+            .unlock-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .payment-button,
+            .email-submit-btn {
+                padding: 12px 16px;
+                font-size: 0.95rem;
+            }
+
+            .testimonial {
+                flex-direction: column;
+                text-align: center;
+                padding: 0;
+            }
+
+            .testimonial img {
+                margin: 0 auto 12px;
+            }
+
+            .testimonials-carousel {
+                padding: 16px 12px;
+            }
+        }
+
+        @media (max-width: 374px) {
+            body {
+                padding: 8px;
+            }
+
+            .email-capture-section,
+            .result-card,
+            .offer-section {
+                padding: 16px 12px;
+                border-radius: 12px;
+            }
+
+            .email-header h2,
+            .result-header h1,
+            .offer-header h2 {
+                font-size: 1.25rem;
+            }
+
+            .new-price {
+                font-size: 2rem;
+            }
+
+            .unlock-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-steps {
+                gap: 8px;
+            }
+
+            .step {
+                width: 32px;
+                height: 32px;
+                font-size: 0.85rem;
+            }
+
+            .step-line {
+                width: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="results-container">
+        <!-- EMAIL CAPTURE SECTION - REQUIRED FIRST -->
+        <div class="email-capture-section" id="emailCaptureSection">
+            <!-- Progress Indicator -->
+            <div class="progress-steps">
+                <div class="step active">1</div>
+                <div class="step-line"></div>
+                <div class="step">2</div>
+                <div class="step-line"></div>
+                <div class="step">3</div>
+            </div>
+            
+            <div class="email-header">
+                <span class="email-badge">🔐 STEP 1 OF 3</span>
+                <h2>Save Your Results</h2>
+                <p>Enter your email below to see a FREE preview of your personality profile.</p>
+            </div>
+            
+            <!-- Email Capture Form -->
+            <form id="emailForm" class="email-form" onsubmit="saveEmail(event)">
+                <div class="input-group">
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input type="email" id="userEmail" placeholder="your.best@email.com" required>
+                </div>
+                
+                <button type="submit" class="email-submit-btn">
+                    <i class="fas fa-lock-open"></i> See My Free Preview
+                </button>
+            </form>
+            
+            <!-- Trust Indicators -->
+            <div class="email-trust">
+                <span><i class="fas fa-shield-alt"></i> 100% private</span>
+                <span><i class="fas fa-clock"></i> 30 sec preview</span>
+                <span><i class="fas fa-envelope"></i> Unsubscribe anytime</span>
+            </div>
+        </div>
+
+        <!-- PARTIAL RESULTS SECTION (Shows after email) -->
+        <div id="partialResultsSection" style="display: none;">
+            <div class="result-header">
+                <div class="result-badge">🎯 STEP 2 OF 3 - YOUR FREE PREVIEW</div>
+                <h1>Your Breakup Personality Profile</h1>
+                <div class="result-subhead">Based on your answers, here's what we discovered about you.</div>
+            </div>
+
+            <!-- Main Result Card - FULLY VISIBLE (Partial Info) -->
+            <div class="result-card">
+                <div class="result-icon" id="previewIcon"></div>
+                <h2 id="previewTitle"></h2>
+                
+                <!-- Partial Description - They see THIS but not the full strategy -->
+                <div class="partial-description" id="previewDescription"></div>
+                
+                <!-- Teaser Box - What they're missing -->
+                <div class="teaser-box">
+                    <h3><i class="fas fa-lock" style="margin-right: 10px;"></i> Your Full Analysis Is Locked</h3>
+                    <p>You've seen your personality type. Now discover:</p>
+                    <div class="teaser-list">
+                        <div class="teaser-item"><i class="fas fa-arrow-right"></i> Why you react this way (psychological root)</div>
+                        <div class="teaser-item"><i class="fas fa-arrow-right"></i> The 3 mistakes you're making right now</div>
+                        <div class="teaser-item"><i class="fas fa-arrow-right"></i> Your personalized 7-day action plan</div>
+                        <div class="teaser-item"><i class="fas fa-arrow-right"></i> Exact words to text her</div>
+                    </div>
+                </div>
+                
+                <!-- Urgency Bar -->
+                <div class="urgency-bar">
+                    <i class="fas fa-fire"></i> 247 people unlocked their full results today
+                </div>
+            </div>
+        </div>
+
+        <!-- PAYMENT SECTION (Full offer with Gumroad Overlay) -->
+        <div id="paymentSection" style="display: none;">
+            <div class="offer-section">
+                <div class="offer-header">
+                    <span class="offer-tag">🔥 STEP 3 OF 3 - UNLOCK FULL ACCESS 🔥</span>
+                    <h2>Get Your Complete 27-Page Recovery System</h2>
+                    <p>Includes your FULL personality analysis + the step-by-step guide to win her back</p>
+                </div>
+
+                <!-- What They Unlock -->
+                <div class="unlock-grid">
+                    <div class="unlock-item">
+                        <i class="fas fa-brain"></i>
+                        <span>Full Psychological Profile</span>
+                    </div>
+                    <div class="unlock-item">
+                        <i class="fas fa-calendar-week"></i>
+                        <span>7-Day Action Plan</span>
+                    </div>
+                    <div class="unlock-item">
+                        <i class="fas fa-comment-dots"></i>
+                        <span>Text Message Scripts</span>
+                    </div>
+                    <div class="unlock-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Mistake Checklist</span>
+                    </div>
+                    <div class="unlock-item">
+                        <i class="fas fa-bolt"></i>
+                        <span>Instant Delivery</span>
+                    </div>
+                </div>
+
+                <!-- Price Box - EURO CURRENCY (€) -->
+                <div class="price-box">
+                    <div class="old-price">€29.99</div>
+                    <div class="new-price">€1.99</div>
+                    <div class="price-note">One-time payment · Instant PDF download · 30-day money back</div>
+                </div>
+
+                <!-- Social Proof -->
+                <div class="social-proof-badge">
+                    <i class="fas fa-check-circle"></i> Join 47,000+ men who've used this guide
+                </div>
+
+                <!-- Gumroad Overlay Button - FIXED TEXT with EURO -->
+                <a href="https://alltimequiz.gumroad.com/l/rtudaz" 
+                   class="payment-button" 
+                   id="gumroadButton"
+                   data-gumroad-overlay="true">
+                    <i class="fas fa-lock"></i> All Results for €1.99
+                </a>
+
+                <!-- Payment Guarantees -->
+                <div class="payment-guarantees">
+                    <div class="guarantee"><i class="fas fa-lock"></i> Secure Checkout</div>
+                    <div class="guarantee"><i class="fas fa-bolt"></i> Instant Access</div>
+                </div>
+
+                <!-- Testimonials Carousel -->
+                <div class="testimonials-carousel" id="testimonialsCarousel">
+                    <div class="carousel-container">
+                        <div class="carousel-wrapper" id="carouselWrapper">
+                            <!-- Testimonial 1 -->
+                            <div class="testimonial">
+                                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Mike">
+                                <div class="testimonial-content">
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <p>"I saw my type was 'The Analyst' and knew I needed the full guide. Worth every cent."</p>
+                                    <strong>- Mike R., Dublin</strong>
+                                </div>
+                            </div>
+
+                            <!-- Testimonial 2 -->
+                            <div class="testimonial">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="James">
+                                <div class="testimonial-content">
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <p>"This guide changed everything. I finally understand why she left and what I need to do differently. Already seeing results!"</p>
+                                    <strong>- James T., London</strong>
+                                </div>
+                            </div>
+
+                            <!-- Testimonial 3 -->
+                            <div class="testimonial">
+                                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="David">
+                                <div class="testimonial-content">
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <p>"The personality analysis was scary accurate. It pinpointed exactly what I'm doing wrong. Best investment I've made."</p>
+                                    <strong>- David K., Manchester</strong>
+                                </div>
+                            </div>
+
+                            <!-- Testimonial 4 -->
+                            <div class="testimonial">
+                                <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="Chris">
+                                <div class="testimonial-content">
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <p>"7-day action plan kept me focused and stopped me from making stupid decisions. She texted me back after 3 days!"</p>
+                                    <strong>- Chris M., Paris</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Carousel Controls -->
+                    <div class="carousel-controls">
+                        <button class="carousel-btn" onclick="prevTestimonial()" title="Previous">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="carousel-indicators" id="carouselIndicators"></div>
+                        <button class="carousel-btn" onclick="nextTestimonial()" title="Next">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // 1. LOAD QUIZ RESULTS FROM LOCALSTORAGE
+        // ============================================
+        const resultType = localStorage.getItem('quizResult') || 'rationalizer';
+        
+        // Result data with PARTIAL previews
+        const resultData = {
+            rationalizer: {
+                title: "The Analyst",
+                icon: "🧠",
+                preview: "You lead with logic. You analyze everything - her texts, her social media, her past words. Your brain is trying to solve this like a math problem. But here's what you're missing..."
+            },
+            devastated: {
+                title: "The Deep Feeler",
+                icon: "💔",
+                preview: "You feel everything intensely. This breakup isn't just painful - it's overwhelming. You're in emotional shock, and it shows in everything you do. But here's what you're missing..."
+            },
+            seeker: {
+                title: "The Confused Seeker",
+                icon: "🔍",
+                preview: "You're stuck in confusion. You know what happened, but not WHY it happened. You replay events, searching for answers. But here's what you're missing..."
+            }
+        };
+
+        const data = resultData[resultType];
+        
+        // ============================================
+        // CAROUSEL MANAGEMENT
+        // ============================================
+        let currentSlide = 0;
+        const totalSlides = document.querySelectorAll('.testimonial').length;
+
+        function initCarousel() {
+            // Create indicator dots
+            const indicatorsContainer = document.getElementById('carouselIndicators');
+            indicatorsContainer.innerHTML = '';
+            
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot' + (i === 0 ? ' active' : '');
+                dot.onclick = () => goToSlide(i);
+                indicatorsContainer.appendChild(dot);
+            }
+            
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const wrapper = document.getElementById('carouselWrapper');
+            const offset = currentSlide * -100;
+            wrapper.style.transform = `translateX(${offset}%)`;
+            
+            // Update indicators
+            document.querySelectorAll('.dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function nextTestimonial() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevTestimonial() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+        
+        // ============================================
+        // 2. EMAIL CAPTURE
+        // ============================================
+        function saveEmail(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('userEmail').value;
+            
+            // Save to localStorage
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('quizResult', resultType);
+            localStorage.setItem('abandonedCart', 'true');
+            
+            // Show success and reveal partial results
+            showPreview(email);
+            
+            // Hide email section, show partial results and payment
+            setTimeout(() => {
+                document.getElementById('emailCaptureSection').style.display = 'none';
+                document.getElementById('partialResultsSection').style.display = 'block';
+                document.getElementById('paymentSection').style.display = 'block';
+                
+                // Scroll to preview
+                document.getElementById('partialResultsSection').scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        }
+
+        function showPreview(email) {
+            const emailSection = document.getElementById('emailCaptureSection');
+            
+            // Set the preview content
+            document.getElementById('previewIcon').innerHTML = data.icon;
+            document.getElementById('previewTitle').innerHTML = data.title;
+            document.getElementById('previewDescription').innerHTML = `
+                <p style="font-size: 1.1rem; line-height: 1.6; color: var(--dark); margin-bottom: 20px;">
+                    ${data.preview}
+                </p>
+            `;
+            
+            // Show success message briefly
+            emailSection.innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <i class="fas fa-check-circle" style="font-size: 4rem; color: #10B981; margin-bottom: 20px;"></i>
+                    <h2 style="color: var(--dark); margin-bottom: 15px;">Your Free Preview Is Ready!</h2>
+                    <p style="color: var(--gray); font-size: 1.1rem;">We've sent a copy to <strong>${email}</strong></p>
+                    <div style="animation: pulse 2s infinite; margin-top: 20px;">
+                        ⬇️ Scroll down to see your preview ⬇️
+                    </div>
+                </div>
+            `;
+            
+            // Track in Gumroad
+            trackInGumroad(email);
+        }
+
+        function trackInGumroad(email) {
+            // Add to Gumroad subscribers
+            const gumroadForm = document.createElement('form');
+            gumroadForm.method = 'POST';
+            gumroadForm.action = 'https://gumroad.com/subscribe';
+            gumroadForm.style.display = 'none';
+            
+            const emailInput = document.createElement('input');
+            emailInput.type = 'email';
+            emailInput.name = 'email';
+            emailInput.value = email;
+            
+            const productInput = document.createElement('input');
+            productInput.type = 'hidden';
+            productInput.name = 'product_id';
+            productInput.value = 'rtudaz';
+            
+            gumroadForm.appendChild(emailInput);
+            gumroadForm.appendChild(productInput);
+            document.body.appendChild(gumroadForm);
+            
+            setTimeout(() => {
+                gumroadForm.submit();
+            }, 1000);
+        }
+
+        // ============================================
+        // 3. GUMROAD OVERLAY WITH EMAIL AUTO-FILL
+        // ============================================
+        document.getElementById('gumroadButton').addEventListener('click', function(e) {
+            const email = localStorage.getItem('userEmail') || '';
+            
+            // Set the email attribute for Gumroad overlay
+            this.setAttribute('data-gumroad-email', email);
+            
+            // Clear abandoned cart flag
+            localStorage.setItem('abandonedCart', 'false');
+            localStorage.setItem('purchaseCompleted', 'true');
+            
+            console.log('Opening Gumroad overlay for:', email);
+        });
+
+        // ============================================
+        // 4. CHECK FOR RETURNING VISITORS
+        // ============================================
+        window.onload = function() {
+            // Initialize carousel
+            initCarousel();
+            
+            const existingEmail = localStorage.getItem('userEmail');
+            const abandoned = localStorage.getItem('abandonedCart');
+            
+            if (existingEmail && abandoned === 'true') {
+                // Returning user - show them preview and payment
+                document.getElementById('emailCaptureSection').style.display = 'none';
+                
+                // Set preview content
+                document.getElementById('previewIcon').innerHTML = data.icon;
+                document.getElementById('previewTitle').innerHTML = data.title;
+                document.getElementById('previewDescription').innerHTML = `
+                    <p style="font-size: 1.1rem; line-height: 1.6; color: var(--dark); margin-bottom: 20px;">
+                        ${data.preview}
+                    </p>
+                `;
+                
+                document.getElementById('partialResultsSection').style.display = 'block';
+                document.getElementById('paymentSection').style.display = 'block';
+                
+                // Add welcome back message
+                const reminder = document.createElement('div');
+                reminder.className = 'urgency-micro';
+                reminder.innerHTML = '<i class="fas fa-clock"></i> Welcome back! Your preview is still here.';
+                const offerSection = document.querySelector('.offer-section');
+                if (offerSection) {
+                    offerSection.prepend(reminder);
+                }
+            }
+        };
+    </script>
+</body>
+</html>

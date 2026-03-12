@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your personalized breakup recovery results and roadmap. Get instant access to proven strategies.">
+    <meta name="theme-color" content="#7C3AED">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Your Breakup Recovery Results Are Ready">
+    <meta property="og:description" content="See your personalized recovery strategy and unlock the full 27-page guide.">
+    <meta property="og:image" content="https://heartbreakquiz.com/og-image.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Your Recovery Results">
+    <meta name="twitter:description" content="Your personalized breakup recovery strategy is ready">
+    
+    <title>Your Results Preview - The Reconnection Protocol</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%237C3AED' width='100' height='100'/><text x='50' y='65' font-size='60' font-weight='bold' fill='white' text-anchor='middle'>❤️</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- FIX #2: Add missing dependencies for data collection and payment -->
+    <script src="config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.26.0"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
+    <script src="database.js"></script>
+    <!-- Gumroad Overlay Script -->
+    <script src="https://gumroad.com/js/gumroad.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #f8f7ff 0%, #fff5f9 100%);
+            font-family: 'Open Sans', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .results-page {
+            max-width: 5xl;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: 3px solid #E5E7EB;
+            background: white;
+            color: #6B7280;
+            transition: all 0.3s ease;
+        }
+
+        .step-number.active {
+            background: linear-gradient(135deg, #A78BFA 0%, #EC4899 100%);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+        }
+
+        .step-number.completed {
+            background: #10B981;
+            border-color: #10B981;
+            color: white;
+        }
+
+        .step-line {
+            width: 60px;
+            height: 3px;
+            background: #E5E7EB;
+            margin: 0 0.5rem;
+        }
+
+        .step-line.active {
+            background: linear-gradient(90deg, #A78BFA 0%, #EC4899 100%);
+        }
+
+        /* Email Capture Card */
+        .capture-card {
+            background: white;
+            border-radius: 24px;
+            border: 2px solid #E5E7EB;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .capture-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #7C3AED 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.75rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #EDE9FE 0%, #FCE7F3 100%);
+            border: 2px solid #C7D2FE;
+            color: #7C3AED;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .subheader {
+            color: #6B7280;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .social-proof {
+            color: #7C3AED;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .social-proof i {
+            font-size: 1.2rem;
+        }
+
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .benefit-item {
+            background: linear-gradient(135deg, #F3E8FF 0%, #FCE7F3 100%);
+            border: 2px solid #E9D5FF;
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(168, 85, 247, 0.15);
+            border-color: #C7D2FE;
+        }
+
+        .benefit-icon {
+            font-size: 1.75rem;
+            color: #7C3AED;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit-text {
+            font-size: 0.85rem;
+            color: #1F2937;
+            font-weight: 600;
+        }
+
+        /* Form Elements */
+        .email-input-wrapper {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .email-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'Open Sans', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: #A78BFA;
+            box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.1);
+            background: #F9FAFB;
+        }
+
+        .email-input::placeholder {
+            color: #9CA3AF;
+        }
+
+        /* Urgency Banner */
+        .urgency-banner {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border: 2px solid #FCD34D;
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            color: #92400E;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .urgency-banner i {
+            font-size: 1.25rem;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        /* CTA Button */
+        .cta-button {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, #EC4899 0%, #A855F7 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+            margin-bottom: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4);
+        }
+
+        .cta-button:active {
+            transform: translateY(0);
+        }
+
+        /* Trust Indicators */
+        .trust-indicators {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #F3F4F6;
+            font-size: 0.9rem;
+            color: #6B7280;
+        }
+
+        @media (min-width: 640px) {
+            .trust-indicators {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                gap: 1rem;
+            }
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .trust-item i {
+            color: #10B981;
+            font-size: 1rem;
+        }
+
+        /* Results Card */
+        .results-card {
+            background: white;
+            border-radius: 24px;
+            border: 2px solid #E5E7EB;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            animation: slideUp 0.6s ease-out 0.2s both;
+            display: none;
+        }
+
+        .results-card.show {
+            display: block;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .result-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #E0E7FF 0%, #FCE7F3 100%);
+            border: 2px solid #C7D2FE;
+            color: #7C3AED;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .results-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1F2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .personality-type {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #7C3AED 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .result-description {
+            font-size: 1.1rem;
+            color: #6B7280;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Teaser Box */
+        .teaser-box {
+            background: linear-gradient(135deg, #F3E8FF 0%, #FCE7F3 100%);
+            border-left: 4px solid #A78BFA;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .teaser-box h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #7C3AED;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .teaser-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .teaser-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            color: #4B5563;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .teaser-item i {
+            color: #EC4899;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        /* Unlock Grid */
+        .unlock-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .unlock-item {
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .unlock-item:hover {
+            transform: translateY(-4px);
+            border-color: #A78BFA;
+            box-shadow: 0 12px 30px rgba(168, 85, 247, 0.15);
+            background: linear-gradient(135deg, #F3E8FF 0%, #FCE7F3 100%);
+        }
+
+        .unlock-item i {
+            font-size: 1.75rem;
+            color: #7C3AED;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .unlock-item span {
+            font-weight: 700;
+            color: #1F2937;
+            font-size: 0.9rem;
+            display: block;
+        }
+
+        /* Payment Section */
+        .payment-card {
+            background: white;
+            border-radius: 24px;
+            border: 2px solid #E5E7EB;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+            animation: slideUp 0.6s ease-out 0.4s both;
+            display: none;
+        }
+
+        .payment-card.show {
+            display: block;
+        }
+
+        .offer-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .offer-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFEAA7 0%, #FDCB6E 100%);
+            color: #E67E22;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .offer-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #1F2937;
+            margin-bottom: 0.75rem;
+        }
+
+        .offer-header p {
+            color: #6B7280;
+            font-size: 1rem;
+        }
+
+        /* Price Box */
+        .price-box {
+            text-align: center;
+            background: linear-gradient(135deg, #F3E8FF 0%, #FCE7F3 100%);
+            border: 2px solid #E9D5FF;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .old-price {
+            font-size: 0.95rem;
+            color: #9CA3AF;
+            text-decoration: line-through;
+            margin-bottom: 0.5rem;
+        }
+
+        .new-price {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #7C3AED 0%, #EC4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.75rem;
+        }
+
+        .price-note {
+            color: #6B7280;
+            font-size: 0.9rem;
+        }
+
+        .price-value {
+            color: #10B981;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        /* Gumroad Button */
+        .gumroad-button {
+            display: block;
+            width: 100%;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, #EC4899 0%, #A855F7 100%) !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 800 !important;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3) !important;
+            text-align: center;
+        }
+
+        .gumroad-button:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4) !important;
+        }
+
+        /* Payment Guarantees */
+        .payment-guarantees {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            padding: 1.5rem;
+            background: #F9FAFB;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        @media (min-width: 640px) {
+            .payment-guarantees {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+        }
+
+        .guarantee {
+            color: #6B7280;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .guarantee i {
+            color: #10B981;
+            font-size: 1rem;
+        }
+
+        /* Testimonial */
+        .testimonial {
+            background: linear-gradient(135deg, #F3E8FF 0%, #FCE7F3 100%);
+            border: 2px solid #E9D5FF;
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .testimonial img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+            flex-shrink: 0;
+        }
+
+        .testimonial-content p {
+            color: #1F2937;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: #7C3AED;
+            font-size: 0.9rem;
+        }
+
+        /* Extra Small Phones (320px-374px) */
+        @media (max-width: 374px) {
+            .results-page {
+                padding: 0.5rem;
+            }
+
+            /* Cards - Tighter spacing */
+            .capture-card,
+            .results-card,
+            .payment-card {
+                padding: 1rem;
+                border-radius: 12px;
+                margin-bottom: 1rem;
+                border-width: 1px;
+            }
+
+            /* Progress Steps - Compact */
+            .progress-steps {
+                gap: 0.25rem;
+                margin-bottom: 1rem;
+            }
+
+            .step-number {
+                width: 32px;
+                height: 32px;
+                font-size: 0.8rem;
+                border-width: 1px;
+            }
+
+            .step-line {
+                width: 20px;
+                margin: 0 0.1rem;
+                height: 2px;
+            }
+
+            /* Headers - Smaller fonts */
+            .capture-header h2,
+            .results-header h1,
+            .offer-header h2 {
+                font-size: 1.25rem;
+                line-height: 1.2;
+            }
+
+            /* Badges - Compact */
+            .badge,
+            .result-badge,
+            .offer-tag {
+                font-size: 0.65rem;
+                padding: 0.3rem 0.6rem;
+                margin-bottom: 0.8rem;
+            }
+
+            /* Text elements - Optimized */
+            .subheader,
+            .social-proof,
+            p {
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+
+            /* Benefits Grid - Single column */
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .benefit-item {
+                padding: 0.5rem 0.75rem;
+            }
+
+            .benefit-text {
+                font-size: 0.75rem;
+            }
+
+            /* Forms - Touch-friendly */
+            .email-input,
+            .cta-button {
+                padding: 0.75rem 0.875rem;
+                font-size: 16px; /* Prevents zoom on iOS */
+                border-radius: 8px;
+                min-height: 44px;
+            }
+
+            /* Icons */
+            .result-icon {
+                font-size: 2.5rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .personality-type {
+                font-size: 1.2rem;
+            }
+
+            .result-description {
+                font-size: 0.95rem;
+                margin-bottom: 1rem;
+            }
+
+            /* Teaser Box */
+            .teaser-box {
+                padding: 1rem;
+                margin-bottom: 1.25rem;
+                border-left-width: 3px;
+            }
+
+            .teaser-box h3 {
+                font-size: 0.95rem;
+                margin-bottom: 0.65rem;
+            }
+
+            .teaser-item {
+                font-size: 0.85rem;
+                gap: 0.4rem;
+                margin-bottom: 0.4rem;
+            }
+
+            /* Unlock Grid - More compact */
+            .unlock-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .unlock-item {
+                padding: 0.75rem;
+                border-radius: 8px;
+            }
+
+            .unlock-item i {
+                font-size: 1.25rem;
+                margin-bottom: 0.35rem;
+            }
+
+            .unlock-item span {
+                font-size: 0.8rem;
+            }
+
+            /* Price Box */
+            .price-box {
+                padding: 1.25rem;
+                margin-bottom: 1rem;
+            }
+
+            .old-price {
+                font-size: 0.8rem;
+            }
+
+            .new-price {
+                font-size: 1.75rem;
+                margin-bottom: 0.4rem;
+            }
+
+            .price-note,
+            .price-value {
+                font-size: 0.8rem;
+            }
+
+            /* Gumroad - Minimal button */
+            .gumroad-button {
+                padding: 0.7rem 0.9rem !important;
+                font-size: 0.8rem !important;
+                min-height: 44px;
+                margin-bottom: 0.75rem !important;
+            }
+
+            /* Guarantees */
+            .payment-guarantees {
+                gap: 0.4rem;
+                padding: 0.75rem;
+            }
+
+            .guarantee {
+                font-size: 0.75rem;
+                gap: 0.3rem;
+                padding: 0.5rem;
+            }
+
+            /* Testimonial */
+            .testimonial {
+                padding: 0.75rem;
+                gap: 0.5rem;
+                border-radius: 10px;
+            }
+
+            .testimonial img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .testimonial-content p {
+                font-size: 0.85rem;
+            }
+
+            .testimonial-author {
+                font-size: 0.75rem;
+            }
+
+            /* Input Subtext */
+            .input-subtext {
+                font-size: 0.75rem;
+                margin-top: 0.35rem;
+            }
+        }
+
+        /* Responsive - Mobile Friendly (375px-768px) */
+        @media (max-width: 768px) {
+            .results-page {
+                padding: 0.75rem;
+            }
+
+            /* Cards */
+            .capture-card,
+            .results-card,
+            .payment-card {
+                padding: 1.25rem;
+                border-radius: 16px;
+                margin-bottom: 1.5rem;
+            }
+
+            /* Progress Steps */
+            .progress-steps {
+                gap: 0.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .progress-step {
+                gap: 0.25rem;
+            }
+
+            .step-number {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+                border-width: 2px;
+            }
+
+            .step-line {
+                width: 30px;
+                margin: 0 0.25rem;
+            }
+
+            /* Headers */
+            .capture-header h2 {
+                font-size: 1.4rem;
+            }
+
+            .results-header h1,
+            .offer-header h2 {
+                font-size: 1.35rem;
+            }
+
+            /* Badges */
+            .badge,
+            .result-badge,
+            .offer-tag {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.8rem;
+                margin-bottom: 1rem;
+            }
+
+            /* Subheader & Social Proof */
+            .subheader {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+
+            .social-proof {
+                font-size: 0.9rem;
+            }
+
+            /* Benefits Grid */
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .benefit-item {
+                padding: 0.75rem;
+            }
+
+            .benefit-text {
+                font-size: 0.8rem;
+            }
+
+            /* Forms */
+            .email-input,
+            .cta-button {
+                padding: 0.85rem 1rem;
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+
+            .cta-button {
+                border-radius: 10px;
+                font-size: 0.95rem;
+                margin-bottom: 0.75rem;
+            }
+
+            /* Urgency Banner */
+            .urgency-banner {
+                padding: 0.75rem 1rem;
+                margin-bottom: 1.25rem;
+                font-size: 0.9rem;
+                gap: 0.5rem;
+            }
+
+            /* Trust Indicators */
+            .trust-indicators {
+                gap: 0.5rem;
+                padding-top: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .trust-item {
+                gap: 0.35rem;
+            }
+
+            .trust-item i {
+                font-size: 0.9rem;
+            }
+
+            /* Result Icon */
+            .result-icon {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+            }
+
+            .personality-type {
+                font-size: 1.3rem;
+            }
+
+            .result-description {
+                font-size: 1rem;
+                margin-bottom: 1.25rem;
+            }
+
+            /* Teaser Box */
+            .teaser-box {
+                padding: 1.25rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .teaser-box h3 {
+                font-size: 1rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .teaser-item {
+                font-size: 0.9rem;
+                gap: 0.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            /* Unlock Grid */
+            .unlock-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .unlock-item {
+                padding: 1rem;
+                border-radius: 10px;
+            }
+
+            .unlock-item i {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .unlock-item span {
+                font-size: 0.85rem;
+            }
+
+            /* Price Box */
+            .price-box {
+                padding: 1.5rem;
+                border-radius: 12px;
+                margin-bottom: 1.25rem;
+            }
+
+            .old-price {
+                font-size: 0.85rem;
+            }
+
+            .new-price {
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .price-note {
+                font-size: 0.85rem;
+            }
+
+            .price-value {
+                font-size: 0.85rem;
+            }
+
+            /* Buttons */
+            .gumroad-button {
+                padding: 0.85rem 1rem !important;
+                font-size: 0.85rem !important;
+                border-radius: 10px !important;
+                margin-bottom: 1rem !important;
+                white-space: normal !important;
+                word-break: break-word !important;
+                line-height: 1.3 !important;
+                display: block !important;
+                width: 100% !important;
+                min-height: auto !important;
+            }
+
+            /* Guarantees */
+            .payment-guarantees {
+                gap: 0.5rem;
+                padding: 1rem;
+            }
+
+            .guarantee {
+                font-size: 0.8rem;
+                gap: 0.4rem;
+            }
+
+            /* Testimonial */
+            .testimonial {
+                padding: 1rem;
+                gap: 0.75rem;
+                border-radius: 12px;
+            }
+
+            .testimonial img {
+                width: 48px;
+                height: 48px;
+            }
+
+            .testimonial-content p {
+                font-size: 0.9rem;
+            }
+
+            .testimonial-author {
+                font-size: 0.8rem;
+            }
+
+            /* Input Subtext */
+            .input-subtext {
+                font-size: 0.8rem;
+                margin-top: 0.5rem;
+            }
+        }
+
+        /* Extra Small Screens */
+        @media (max-width: 480px) {
+            .results-page {
+                padding: 0.5rem;
+            }
+
+            .capture-card,
+            .results-card,
+            .payment-card {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .capture-header h2 {
+                font-size: 1.25rem;
+            }
+
+            .results-header h1,
+            .offer-header h2 {
+                font-size: 1.2rem;
+            }
+
+            .progress-steps {
+                gap: 0.25rem;
+            }
+
+            .step-number {
+                width: 36px;
+                height: 36px;
+                font-size: 0.85rem;
+            }
+
+            .step-line {
+                width: 20px;
+                margin: 0;
+            }
+
+            .subheader,
+            .social-proof {
+                font-size: 0.9rem;
+            }
+
+            .benefits-grid {
+                margin-bottom: 1rem;
+            }
+
+            .unlock-grid {
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .new-price {
+                font-size: 1.75rem;
+            }
+
+            .offer-header p {
+                font-size: 0.9rem;
+            }
+
+            .price-box {
+                padding: 1.25rem;
+            }
+
+            .testimonial {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .testimonial img {
+                width: 56px;
+                height: 56px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Extra small phones (under 380px) */
+        @media (max-width: 380px) {
+            .gumroad-button {
+                padding: 0.75rem 0.9rem !important;
+                font-size: 0.8rem !important;
+                line-height: 1.2 !important;
+                display: block !important;
+                width: 100% !important;
+            }
+
+            .gumroad-button i {
+                margin-right: 0.3rem;
+                font-size: 0.75rem !important;
+            }
+
+            .offer-tag {
+                font-size: 0.7rem;
+            }
+
+            .offer-header h2 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="results-page">
+        <!-- PROGRESS STEPS -->
+        <div class="progress-steps">
+            <div class="progress-step">
+                <div class="step-number active" id="step1num">1</div>
+                <span style="font-size: 0.75rem; color: #7C3AED;">Email</span>
+            </div>
+            <div class="step-line active"></div>
+            <div class="progress-step">
+                <div class="step-number" id="step2num">2</div>
+                <span style="font-size: 0.75rem;">Preview</span>
+            </div>
+            <div class="step-line" id="stepLine2"></div>
+            <div class="progress-step">
+                <div class="step-number" id="step3num">3</div>
+                <span style="font-size: 0.75rem;">Unlock</span>
+            </div>
+        </div>
+
+        <!-- STEP 1: EMAIL CAPTURE -->
+        <div class="capture-card" id="emailCaptureSection">
+            <div class="capture-header">
+                <span class="badge">🔐 STEP 1 OF 3</span>
+                <h2>Get Your Personalized Recovery Strategy</h2>
+                <p class="subheader">Your personality profile reveals exactly why the breakup happened and the proven system to win her back.</p>
+                <p class="social-proof"><i class="fas fa-users"></i> Join <strong>47,000+ men</strong> who've discovered their path</p>
+            </div>
+
+            <!-- Benefits Grid -->
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-lightbulb"></i></div>
+                    <div class="benefit-text">Why She Left</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-compass"></i></div>
+                    <div class="benefit-text">Your Type</div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon"><i class="fas fa-map"></i></div>
+                    <div class="benefit-text">Winning Plan</div>
+                </div>
+            </div>
+
+            <!-- Email Form -->
+            <form id="emailForm" onsubmit="saveEmail(event)">
+                <div class="urgency-banner">
+                    <i class="fas fa-fire"></i>
+                    <span>Results expire in <strong id="countdownTimer">15:00</strong></span>
+                </div>
+
+                <div class="email-input-wrapper">
+                    <input type="email" id="userEmail" class="email-input" placeholder="your.best@email.com" required>
+                </div>
+
+                <button type="submit" class="cta-button">
+                    <i class="fas fa-arrow-right"></i> Unlock My Free Preview
+                </button>
+            </form>
+
+            <!-- Trust Indicators -->
+            <div class="trust-indicators">
+                <div class="trust-item">
+                    <i class="fas fa-shield-alt"></i> 100% Private & Secure
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-bolt"></i> Instant Delivery
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-undo"></i> Cancel Anytime
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2: RESULTS PREVIEW -->
+        <div class="results-card" id="partialResultsSection">
+            <div class="results-header">
+                <span class="result-badge">🎯 STEP 2 OF 3 - YOUR RESULTS</span>
+                <h1>Your Breakup Personality Profile</h1>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <div class="result-icon" id="previewIcon">🧠</div>
+                <h2 class="personality-type" id="previewTitle">The Analyst</h2>
+                <p class="result-description" id="previewDescription">You lead with logic and analysis. You analyze everything trying to solve this puzzle...</p>
+            </div>
+
+            <!-- Teaser Box -->
+            <div class="teaser-box">
+                <h3><i class="fas fa-lock"></i> Your Full Analysis Is Locked</h3>
+                <div class="teaser-list">
+                    <div class="teaser-item">
+                        <i class="fas fa-check"></i>
+                        <span><strong>Why you react this way</strong> - psychological roots revealed</span>
+                    </div>
+                    <div class="teaser-item">
+                        <i class="fas fa-check"></i>
+                        <span><strong>The 3 biggest mistakes</strong> you're making right now</span>
+                    </div>
+                    <div class="teaser-item">
+                        <i class="fas fa-check"></i>
+                        <span><strong>Your 7-day action plan</strong> - step by step</span>
+                    </div>
+                    <div class="teaser-item">
+                        <i class="fas fa-check"></i>
+                        <span><strong>Exact words to text her</strong> - word-for-word scripts</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unlock Grid -->
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <p style="color: #6B7280; font-weight: 600; margin-bottom: 1rem;"><i class="fas fa-arrow-down"></i> Scroll down to unlock your full results</p>
+            </div>
+        </div>
+
+        <!-- STEP 3: PAYMENT -->
+        <div class="payment-card" id="paymentSection">
+            <div class="offer-header">
+                <span class="offer-tag">🔥 STEP 3 OF 3 - UNLOCK NOW 🔥</span>
+                <h2>Get Your Complete Recovery System</h2>
+                <p>Includes your FULL personality analysis + personalized 27-page guide</p>
+            </div>
+
+            <!-- Unlock Items Grid -->
+            <div class="unlock-grid">
+                <div class="unlock-item">
+                    <i class="fas fa-book-open"></i>
+                    <span>Full 27-Page Guide</span>
+                </div>
+                <div class="unlock-item">
+                    <i class="fas fa-brain"></i>
+                    <span>Psychology Analysis</span>
+                </div>
+                <div class="unlock-item">
+                    <i class="fas fa-comments"></i>
+                    <span>Text Scripts</span>
+                </div>
+                <div class="unlock-item">
+                    <i class="fas fa-calendar-week"></i>
+                    <span>7-Day Plan</span>
+                </div>
+                <div class="unlock-item">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Mistake Guide</span>
+                </div>
+                <div class="unlock-item">
+                    <i class="fas fa-hourglass-end"></i>
+                    <span>Instant Access</span>
+                </div>
+            </div>
+
+            <!-- Price Box -->
+            <div class="price-box">
+                <div class="old-price">€29.99</div>
+                <div class="new-price">€1.99</div>
+                <div class="price-note">One-time payment • Instant PDF download</div>
+                <div class="price-value">✓ 47,000+ men have used this guide</div>
+            </div>
+
+            <!-- Gumroad Button -->
+            <a href="https://alltimequiz.gumroad.com/l/rtudaz" class="gumroad-button" id="gumroadButton" data-gumroad-overlay="true">
+                <i class="fas fa-lock"></i> Unlock My Full Results for €1.99
+            </a>
+
+            <!-- Payment Guarantees -->
+            <div class="payment-guarantees">
+                <div class="guarantee">
+                    <i class="fas fa-lock"></i> Secure Checkout
+                </div>
+                <div class="guarantee">
+                    <i class="fas fa-download"></i> Instant Access
+                </div>
+                <div class="guarantee">
+                    <i class="fas fa-undo-alt"></i> 30-Day Guarantee
+                </div>
+            </div>
+
+            <!-- Testimonial -->
+            <div class="testimonial">
+                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Mike">
+                <div class="testimonial-content">
+                    <p>"I finally understood why I was pushing her away. The scripts are gold."</p>
+                    <div class="testimonial-author">— Mike R., Dublin</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== RESULT DATA =====
+        const resultType = localStorage.getItem('quizResult') || 'rationalizer';
+        
+        const resultData = {
+            rationalizer: {
+                title: "The Analyst",
+                icon: "🧠",
+                preview: "You lead with logic, not emotion—and that's actually a strength, but also your biggest obstacle right now. You analyze everything obsessively: every text you sent, every word she said, every action on social media. Your brain treats this breakup like a math problem that needs solving, looking for the variable you missed, the equation you got wrong. The problem? Relationships aren't logic. They're unpredictable. While you're busy analyzing every detail, your brain is also protecting you from the deeper feelings underneath—but those feelings are still there, building pressure. The full guide reveals the specific pattern you're stuck in and the exact psychological shift you need to make to break through analysis paralysis and move toward real reconnection."
+            },
+            devastated: {
+                title: "The Deep Feeler",
+                icon: "💔",
+                preview: "Every feeling hits you at full force. This breakup isn't just painful—it's all-consuming. You're in emotional shock, and your heart is completely shattered. You might feel numb one moment, then overwhelmed with grief the next. Food doesn't taste the same. Sleep feels impossible. Everything reminds you of her, and the weight of missing her physically hurts. You can barely focus at work or with friends because the sadness keeps pulling you back. This intensity is who you are—you love deeply, you feel fully—but right now, that depth is drowning you. The full guide shows you how to honor your feelings while learning the counterintuitive emotional techniques that have helped thousands of people in your exact position move from devastation to hope. There's a path forward, and it starts with understanding exactly what you're going through."
+            },
+            seeker: {
+                title: "The Confused Seeker",
+                icon: "🔍",
+                preview: "You're trapped in a loop of confusion. You know the breakup happened—you know the facts—but the WHY remains this unsolved mystery that haunts you. You replay conversations obsessively, searching for the moment it all went wrong. You analyze her behavior, your behavior, looking for clues you might have missed. Did she ever really love you? Was it something you said? Something you didn't say? The not-knowing is almost worse than the pain itself because your mind can't rest. You want answers, closure, understanding—but they're locked away somewhere you can't reach. This constant searching is exhausting, and it's keeping you stuck in limbo. The full guide provides the clarity you desperately need, walking you through the exact framework to decode what really happened, understand the deeper patterns, and most importantly, know what to do next with confidence instead of guesswork."
+            }
+        };
+
+        const data = resultData[resultType];
+
+        // ===== COUNTDOWN TIMER =====
+        function initCountdownTimer() {
+            let timeLeft = 900;
+            const timerEl = document.getElementById('countdownTimer');
+            if (!timerEl) return;
+
+            const update = () => {
+                const mins = Math.floor(timeLeft / 60);
+                const secs = timeLeft % 60;
+                // FIX #9: Pad both minutes and seconds for consistent display format
+                timerEl.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    setTimeout(update, 1000);
+                }
+            };
+            update();
+        }
+
+        // FIX #4: Email validation function
+        function isValidEmail(email) {
+            // RFC 5322 simplified email regex
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email) && email.length <= 254;
+        }
+
+        // ===== EMAIL FORM =====
+        function saveEmail(event) {
+            event.preventDefault();
+            const email = document.getElementById('userEmail').value.trim();
+            
+            // FIX #4: Add email validation
+            if (!isValidEmail(email)) {
+                alert('Please enter a valid email address (e.g., your.email@example.com)');
+                document.getElementById('userEmail').focus();
+                return;
+            }
+            
+            // FIX #5: Check if localStorage is available before saving
+            try {
+                localStorage.setItem('userEmail', email);
+            } catch (error) {
+                console.warn('LocalStorage not available (private browsing?):', error);
+                // Continue anyway - data can still be used in session
+            }
+            
+            localStorage.setItem('quizResult', resultType);
+            localStorage.setItem('abandonedCart', 'true');
+
+            // Update UI
+            const emailCard = document.getElementById('emailCaptureSection');
+            emailCard.innerHTML = `
+                <div style="text-align: center; padding: 3rem;">
+                    <i class="fas fa-check-circle" style="font-size: 4rem; color: #10B981; margin-bottom: 1rem; display: block;"></i>
+                    <h2 style="color: #1F2937; margin-bottom: 0.5rem; font-family: 'Montserrat', sans-serif;">Preview Ready!</h2>
+                    <p style="color: #6B7280;">Sent to <strong>${email}</strong></p>
+                </div>
+            `;
+
+            // Show next sections
+            document.getElementById('step1num').classList.remove('active');
+            document.getElementById('step1num').classList.add('completed');
+            document.getElementById('step2num').classList.add('active');
+            
+            document.getElementById('partialResultsSection').classList.add('show');
+            document.getElementById('paymentSection').classList.add('show');
+
+            // Set preview content
+            document.getElementById('previewIcon').textContent = data.icon;
+            document.getElementById('previewTitle').textContent = data.title;
+            document.getElementById('previewDescription').textContent = data.preview;
+
+            setTimeout(() => {
+                document.getElementById('partialResultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+        }
+
+        // ===== GUMROAD BUTTON =====
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('gumroadButton');
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    // FIX #5: Safely get email from localStorage
+                    try {
+                        const email = localStorage.getItem('userEmail') || '';
+                        this.setAttribute('data-gumroad-email', email);
+                        localStorage.setItem('purchaseCompleted', 'true');
+                    } catch (error) {
+                        console.warn('Could not access localStorage:', error);
+                    }
+                    
+                    document.getElementById('step2num').classList.remove('active');
+                    document.getElementById('step2num').classList.add('completed');
+                    document.getElementById('step3num').classList.add('active');
+                });
+            }
+
+            // Init timer
+            initCountdownTimer();
+
+            // Check returning visitors
+            // FIX #5: Wrap in try-catch for private browsing mode
+            try {
+                const email = localStorage.getItem('userEmail');
+                if (email && localStorage.getItem('abandonedCart') === 'true') {
+                    document.getElementById('emailCaptureSection').innerHTML = `
+                        <div style="text-align: center; padding: 3rem;">
+                            <i class="fas fa-clock" style="font-size: 2rem; color: #FCD34D; margin-bottom: 1rem;"></i>
+                            <p style="color: #6B7280;">Welcome back! Your preview is ready.</p>
+                        </div>
+                    `;
+                    
+                    document.getElementById('partialResultsSection').classList.add('show');
+                    document.getElementById('paymentSection').classList.add('show');
+                    
+                    document.getElementById('previewIcon').textContent = data.icon;
+                    document.getElementById('previewTitle').textContent = data.title;
+                    document.getElementById('previewDescription').textContent = data.preview;
+
+                    document.getElementById('step1num').classList.add('completed');
+                    document.getElementById('step2num').classList.add('active');
+                }
+            } catch (error) {
+                console.warn('Could not check returning visitor status:', error);
+                // Continue normally if localStorage is not available
+            }
+        });
+    </script>
+</body>
+</html>
